@@ -1,0 +1,90 @@
+// Returns a random DNA base
+const returnRandBase = () => {
+  const dnaBases = ['A', 'T', 'C', 'G']
+  return dnaBases[Math.floor(Math.random() * 4)] 
+}
+//console.log(returnRandBase());
+
+// Returns a random single stand of DNA containing 15 bases
+const mockUpStrand = () => {
+  const newStrand = []
+  for (let i = 0; i < 15; i++) {
+    newStrand.push(returnRandBase())
+  }
+  return newStrand
+}
+console.log(mockUpStrand())
+const pAequorFactory=(num,dna)=>{
+  return {
+    _specimenNum:num,
+    _dna:dna,
+    get specimenNum(){
+      return this._specimenNum;
+    },
+    set specimenNum(num){
+      this._specimenNum=num;
+    },
+    get dna(){
+      return this._dna;
+    },
+    set dna(dna){
+        this._dna=dna;
+    },
+    mutate(){
+      let base=returnRandBase();
+      for (let i=0;i<this.dna;i++){
+        while(base===this.dna[i]){
+          this.dna[i]=returnRandBase();
+        }
+      }
+      //console.log(arrDna);
+      return dna;
+    },
+    compareDNA(obj){
+      let num=0;
+    for(let i=0;i<this.dna.length;i++){
+        if(this.dna[i]===obj[i]);
+        num+=1;
+    }
+    let percentage=(num/this.dna.length)*100;
+    percentage.toFixed();
+    console.log(`specimen #1 and specimen #2 have ${percentage}% DNA in common`);
+    
+    },
+    willLikelySurvive(){
+     let surv=0;
+     for(let i=0;i<this.dna.length;i++){
+       if(this.dna[i]==='C' || this.dna[i]=='G'){
+         surv++;
+       }
+     }
+     const perce=(surv/this.dna.length)*100; 
+     if(perce>60){
+       return true;
+     }
+     else{
+       false;
+     }
+    }
+  };
+}
+let specimens=[];
+for(let i=10;i<40;i++){
+  let specimen=pAequorFactory(i,mockUpStrand());
+  //if(specimen.willLikelySurvive()){
+    specimens.push(specimen);
+  //}
+  
+}
+
+console.log(specimens.length)
+//let pAequor=pAequorFactory(1,mockUpStrand());
+//let pAequor=pAequorFactory(5,mockUpStrand());
+//console.log(pAequor.mutate());
+
+
+
+
+
+
+
